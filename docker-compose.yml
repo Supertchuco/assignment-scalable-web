@@ -1,0 +1,11 @@
+version: "2"
+
+services:
+
+  assignment-scalable-web:
+    image: assignment-scalable-web:latest
+    ports:
+      - "8090:8090"
+    restart: always
+    environment:
+      - SPRING_PROFILES_ACTIVE=h2

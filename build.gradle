@@ -1,0 +1,85 @@
+buildscript {
+	ext {
+		apacheVersion = '3.6'
+		jwtVersion = '7.0.1'
+	}
+}
+
+plugins {
+	id 'org.asciidoctor.convert' version '1.5.3'
+	id 'org.springframework.boot' version '2.1.5.RELEASE'
+	id 'java'
+}
+
+
+jar {
+	baseName = 'assignment-scalable-web'
+}
+
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'checkstyle'
+apply plugin: 'pmd'
+
+group = 'com.scalable'
+sourceCompatibility = '1.8'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('snippetsDir', file("build/generated-snippets"))
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'mysql:mysql-connector-java'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// commons
+	compile("org.apache.commons:commons-lang3:${apacheVersion}") {
+		exclude group: 'org.apache.commons', module: 'commons-io'
+	}
+	compile group: 'commons-io', name: 'commons-io', version: '2.6'
+
+	//swagger
+	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+	
+	
+	
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+}
+
+test {
+	outputs.dir snippetsDir
+}
+
+asciidoctor {
+	inputs.dir snippetsDir
+	dependsOn test
+}
+
+checkstyle {
+	toolVersion = '8.18'
+	ignoreFailures = false
+	maxWarnings = 2
+	configFile = file('config/checkstyle/checkstyle.xml')
+}
+
+pmd {
+	toolVersion = '5.5.7'
+	ignoreFailures = false
+	ruleSetFiles = files('config/pmd/pmd.xml')
+}
