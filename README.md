@@ -38,7 +38,7 @@ This project I have developed using Intellij IDE and these technologies and fram
 	This project is formed per one SpringBoot Application.
         Notes about application:
             -It is configured to listen 8090 port;
-            -It is configured to use Swagger, using ityou can check the endpoints, payloads and you can do request directly to API using a browser. To access Swagger interface use this url: http://localhost:8090/swagger-ui.html, just a detail, if you are using Docker in Windowns machine maybe you need to change the localhost to a -specific ip (I need to that because I have used Docker toolbox)
+            -It is configured to use Swagger, using it you can check the endpoints and payloads using an internet browser. To access Swagger interface use this url: http://localhost:8090/swagger-ui.html, just a detail, if you are using Docker in Windowns machine maybe you need to change the localhost to a -specific ip (I need to that because I have used Docker toolbox)
 			-Basic the API has these endpoints:
 				post - /v1/diff/{binaryDataId} - Diff right and left binary data;
                 post - /v1/diff/{binaryDataId}/left - Input left binary data;
@@ -74,6 +74,7 @@ Inside Intellij IDE:
 ```bash
 -Import the project;
 -Execute Gradle import;
+-Check Enable annotation processing field in Intellij options
 -If necessary configure Mysql database in profile file our if you want to use H2 you can pass to next step;
 -Start application using the Intellij IDE.
 ```
@@ -95,5 +96,12 @@ Inside Intellij IDE:
 		right_Data: varchar(255)
 ```
 
+## Points to Improve 
+ The database schema is very simple, it is compost by this table:
+```bash
+	- Api to Get Binary_Data;
+	- Api to Delete Binary_Data;
+	- Implement Spring security to give more security in the API.
+```
 
 If you have questions, please feel free to contact me.
