@@ -97,7 +97,7 @@ Inside Intellij IDE:
 ```
 
 ## Points to Improve 
- The database schema is very simple, it is compost by this table:
+ Major points to improve in this API:
 ```bash
 	- Api to Get Binary_Data;
 	- Api to Delete Binary_Data;
